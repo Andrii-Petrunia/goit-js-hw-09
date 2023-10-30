@@ -33,10 +33,7 @@ let countdownIntervalId;
 startButton.addEventListener('click', startTimer);
 
 function startTimer() {
-  const selectedDate = flatpickr.parseDate(
-    datetimePicker.value,
-    'Y-m-d H:i'
-  );
+  const selectedDate = flatpickr.parseDate(datetimePicker.value, 'Y-m-d H:i');
   if (selectedDate <= new Date()) {
     Notiflix.Notify.failure('Please choose a date in the future');
     return;
@@ -63,22 +60,26 @@ function startTimer() {
 }
 
 function convertMs(ms) {
-    const second = 1000;
-    const minute = second * 60;
-    const hour = minute * 60;
-    const day = hour * 24;
+  const second = 1000;
+  const minute = second * 60;
+  const hour = minute * 60;
+  const day = hour * 24;
 
-    const days = Math.floor(ms / day);
-    const hours = Math.floor((ms % day) / hour);
-    const minutes = Math.floor((ms % hour) / minute);
-    const seconds = Math.floor((ms % minute) / second);
+  const days = Math.floor(ms / day);
+  const hours = Math.floor((ms % day) / hour);
+  const minutes = Math.floor((ms % hour) / minute);
+  const seconds = Math.floor((ms % minute) / second);
 
-    return { days, hours, minutes, seconds };
+  return { days, hours, minutes, seconds };
 }
 
 function updateTimeElements(days, hours, minutes, seconds) {
-  daysElement.textContent = days.toString().padStart(2, '0');
-  hoursElement.textContent = hours.toString().padStart(2, '0');
-  minutesElement.textContent = minutes.toString().padStart(2, '0');
-  secondsElement.textContent = seconds.toString().padStart(2, '0');
+  daysElement.textContent = days ? days.toString().padStart(2, '0') : '00';
+  hoursElement.textContent = hours ? hours.toString().padStart(2, '0') : '00';
+  minutesElement.textContent = minutes
+    ? minutes.toString().padStart(2, '0')
+    : '00';
+  secondsElement.textContent = seconds
+    ? seconds.toString().padStart(2, '0')
+    : '00';
 }
